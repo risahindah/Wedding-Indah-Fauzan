@@ -821,6 +821,7 @@ p {
   backdrop-filter: blur(2px);
   scrollbar-width: thin;
   scrollbar-color: var(--accent) transparent;
+  text-transform: capitalize; /* ✅ Ini bikin huruf awal setiap kata jadi kapital */
 }
 
 .messages-list::-webkit-scrollbar {
@@ -911,12 +912,40 @@ p {
   box-shadow: 0 4px 15px var(--shadow-dark);
 }
 
+.submit-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
 .submit-btn:hover {
   background: var(--secondary);
   transform: translateY(-2px);
   box-shadow: 0 8px 25px var(--shadow-dark);
 }
+.loading-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid white;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  display: none; /* default tidak tampil */
+}
 
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.submit-btn.loading .loading-spinner {
+  display: inline-block;
+}
+
+.submit-btn.loading span,
+.submit-btn.loading .icon {
+  display: none;
+}
 /* Footer Section */
 .footer-content h2 {
   color: var(--light);
