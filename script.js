@@ -475,6 +475,22 @@ async function loadMessages() {
   }
 }
 
+async function loadMessagesFromSheet() {
+  try {
+    const response = await fetch(
+      "https://script.google.com/macros/s/AKfycbwOcWHVnbSfmseHX9Ew3e66rMxabR-gWdwynf0GcSWFg_c-GjrDVc-ILn3ZYGwODe5W/exec"
+    );
+    const data = await response.json();
+
+    // Pastikan urutannya dari terbaru ke lama
+    messages = data.reverse();
+
+    displayMessages();
+  } catch (error) {
+    console.error("Gagal memuat pesan dari Google Sheet:", error);
+  }
+}
+
 // Display messages in the messages list
 function displayMessages() {
   const messagesList = document.getElementById("messagesList");
@@ -541,7 +557,7 @@ function setupMessageForm() {
         method: "POST",
         body: JSON.stringify({
           name: name,
-          message: text,
+          text: text, // ✅ ganti dari 'message' ke 'text'
         }),
       });
 
