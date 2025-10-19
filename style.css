@@ -11,7 +11,7 @@ html {
 }
 
 body {
-  font-family: "Poppins", sans-serif;
+  font-family: "Montserrat", sans-serif;
   line-height: 1.6;
   overflow-x: hidden;
   color: #3a3960;
@@ -53,7 +53,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Playfair Display", serif;
+  font-family: "Cormorant Garamond", serif;
   line-height: 1.2;
   margin-bottom: 1rem;
 }
@@ -289,12 +289,11 @@ p {
 }
 
 .gallery-section {
-  background: linear-gradient(
-    45deg,
-    var(--light) 0%,
-    rgba(169, 191, 168, 0.3) 50%,
-    var(--light) 100%
-  );
+  background: linear-gradient(rgba(58, 57, 96, 0.3), rgba(94, 104, 109, 0.4)),
+    url("./assets/IMG_3198.JPG");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
 }
 
 .messages-section {
@@ -538,6 +537,10 @@ p {
   background: rgba(255, 255, 255, 0.95);
   padding: 2.5rem;
   text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   box-shadow: 0 8px 32px var(--shadow);
   backdrop-filter: blur(2px);
   transition: all 0.3s ease;
@@ -561,14 +564,20 @@ p {
 }
 
 .event-details p {
+  display: flex;
   margin-bottom: 0.8rem;
   font-size: 1rem;
+  line-height: 1.5;
 }
 
 .event-details strong {
   color: var(--primary);
-  display: inline-block;
-  width: 120px;
+  width: 150px; /* Lebih lebar agar rata */
+  flex-shrink: 0; /* Agar label tidak mengecil */
+}
+
+.event-details span {
+  flex: 1; /* Isi menyesuaikan sisa ruang */
 }
 
 /* Maps Section */

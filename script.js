@@ -164,45 +164,55 @@ observer.observe(splashSection);
 
 // Initialize countdown timer
 function initializeCountdown() {
-  const weddingDate = new Date("2025-11-29T10:00:00+07:00").getTime();
+  const weddingDate = new Date("2025-11-29T15:09:00+07:00").getTime();
 
   function updateCountdown() {
     const now = new Date().getTime();
-    const timeLeft = weddingDate - now;
+    let timeLeft = weddingDate - now;
+    let isPast = false;
 
-    if (timeLeft > 0) {
-      const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-      const hours = Math.floor(
-        (timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-      );
-      const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+    if (timeLeft < 0) {
+      timeLeft = Math.abs(timeLeft); // ambil selisih positif
+      isPast = true;
+    }
 
-      document.getElementById("days").textContent = days
-        .toString()
-        .padStart(2, "0");
-      document.getElementById("hours").textContent = hours
-        .toString()
-        .padStart(2, "0");
-      document.getElementById("minutes").textContent = minutes
-        .toString()
-        .padStart(2, "0");
-      document.getElementById("seconds").textContent = seconds
-        .toString()
-        .padStart(2, "0");
-    } else {
-      // Wedding day has arrived
-      document.getElementById("days").textContent = "00";
-      document.getElementById("hours").textContent = "00";
-      document.getElementById("minutes").textContent = "00";
-      document.getElementById("seconds").textContent = "00";
+    const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+    const hours = Math.floor(
+      (timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+    );
+    const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+    document.getElementById("days").textContent = days
+      .toString()
+      .padStart(2, "0");
+    document.getElementById("hours").textContent = hours
+      .toString()
+      .padStart(2, "0");
+    document.getElementById("minutes").textContent = minutes
+      .toString()
+      .padStart(2, "0");
+    document.getElementById("seconds").textContent = seconds
+      .toString()
+      .padStart(2, "0");
+
+    // Tambahkan indikator status
+    let statusEl = document.getElementById("countdownStatus");
+    if (!statusEl) {
+      statusEl = document.createElement("div");
+      statusEl.id = "countdownStatus";
+      statusEl.style.marginTop = "10px";
+      statusEl.style.fontWeight = "bold";
+      document.getElementById("countdownTimer").appendChild(statusEl);
     }
   }
 
-  // Update countdown immediately and then every second
   updateCountdown();
   setInterval(updateCountdown, 1000);
 }
+
+// Jalankan countdown saat halaman siap
+initializeCountdown();
 
 // Initialize music functionality
 function initializeMusic() {
