@@ -454,23 +454,23 @@ function initializeMessages() {
 
 // Load messages from JSON and localStorage
 async function loadMessages() {
+  const SCRIPT_URL =
+    "https://script.google.com/macros/s/AKfycbwOcWHVnbSfmseHX9Ew3e66rMxabR-gWdwynf0GcSWFg_c-GjrDVc-ILn3ZYGwODe5W/exec";
+
   try {
-    // Load initial messages from JSON
-    const response = await fetch("messages.json");
-    const initialMessages = await response.json();
+    const response = await fetch(SCRIPT_URL);
+    const data = await response.json();
 
-    // Load additional messages from localStorage
-    const localMessages = JSON.parse(
-      localStorage.getItem("guestMessages") || "[]"
-    );
+    // data = array dari Google Sheet
+    // Contoh: [{ name: "Dani", message: "Selamat!", timestamp: "..." }, ...]
 
-    // Combine and sort messages
-    messages = [...initialMessages, ...localMessages];
+    // Simpan ke variabel global messages (supaya displayMessages() tetap bisa jalan)
+    messages = data.reverse(); // pesan terbaru tampil paling atas
+
     displayMessages();
   } catch (error) {
     console.error("Error loading messages:", error);
-    // Load only from localStorage if JSON fails
-    messages = JSON.parse(localStorage.getItem("guestMessages") || "[]");
+    messages = [];
     displayMessages();
   }
 }
@@ -510,7 +510,10 @@ function setupMessageForm() {
   const messageForm = document.getElementById("messageForm");
   if (!messageForm) return;
 
-  messageForm.addEventListener("submit", function (event) {
+  const SCRIPT_URL =
+    "https://script.google.com/macros/s/AKfycbwOcWHVnbSfmseHX9Ew3e66rMxabR-gWdwynf0GcSWFg_c-GjrDVc-ILn3ZYGwODe5W/exec";
+
+  messageForm.addEventListener("submit", async function (event) {
     event.preventDefault();
 
     const nameInput = document.getElementById("messageName");
@@ -519,7 +522,7 @@ function setupMessageForm() {
     const name = nameInput.value.trim();
     const text = textInput.value.trim();
 
-    // Validate inputs
+    // Validasi input
     if (!name || name.length < 2) {
       showToast("Nama harus diisi minimal 2 karakter");
       nameInput.focus();
@@ -532,29 +535,28 @@ function setupMessageForm() {
       return;
     }
 
-    // Add new message
-    const newMessage = {
-      name: name,
-      text: text,
-      timestamp: new Date().toISOString(),
-    };
+    // Kirim ke Google Sheet
+    try {
+      await fetch(SCRIPT_URL, {
+        method: "POST",
+        body: JSON.stringify({
+          name: name,
+          message: text,
+        }),
+      });
 
-    messages.unshift(newMessage); // Add to beginning
+      // Bersihkan form
+      nameInput.value = "";
+      textInput.value = "";
 
-    // Save to localStorage
-    const localMessages = JSON.parse(
-      localStorage.getItem("guestMessages") || "[]"
-    );
-    localMessages.unshift(newMessage);
-    localStorage.setItem("guestMessages", JSON.stringify(localMessages));
+      // Reload pesan dari server
+      await loadMessagesFromSheet();
 
-    // Clear form
-    nameInput.value = "";
-    textInput.value = "";
-
-    // Update display
-    displayMessages();
-    showToast("Ucapan berhasil dikirim");
+      showToast("Ucapan berhasil dikirim");
+    } catch (error) {
+      console.error("Gagal mengirim pesan:", error);
+      showToast("Terjadi kesalahan saat mengirim pesan");
+    }
   });
 }
 
