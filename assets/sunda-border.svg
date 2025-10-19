@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <defs>
+    <!-- Sundanese floral motif pattern -->
+    <pattern id="sundaPattern" patternUnits="userSpaceOnUse" width="50" height="50">
+      <!-- Sulur daun (leaf tendrils) -->
+      <path d="M5,25 Q15,15 25,25 Q35,15 45,25" stroke="#A9BFA8" stroke-width="1.5" fill="none" opacity="0.7"/>
+      <path d="M25,5 Q15,15 25,25 Q15,35 25,45" stroke="#A9BFA8" stroke-width="1.5" fill="none" opacity="0.7"/>
+      
+      <!-- Small flowers -->
+      <circle cx="12" cy="12" r="2" fill="#FAFFC5" opacity="0.6"/>
+      <circle cx="38" cy="38" r="2" fill="#FAFFC5" opacity="0.6"/>
+      <circle cx="12" cy="38" r="1.5" fill="#5E686D" opacity="0.4"/>
+      <circle cx="38" cy="12" r="1.5" fill="#5E686D" opacity="0.4"/>
+      
+      <!-- Geometric elements -->
+      <polygon points="25,20 27,22 25,24 23,22" fill="#3A3960" opacity="0.3"/>
+    </pattern>
+    
+    <!-- Corner ornament -->
+    <g id="cornerOrnament">
+      <!-- Angklung silhouette (simplified) -->
+      <path d="M0,0 L8,0 L8,20 L6,22 L2,22 Z" fill="#FAFFC5" opacity="0.5"/>
+      <rect x="1" y="5" width="6" height="2" fill="#3A3960" opacity="0.6"/>
+      <rect x="1" y="8" width="6" height="2" fill="#3A3960" opacity="0.6"/>
+      <rect x="1" y="11" width="6" height="2" fill="#3A3960" opacity="0.6"/>
+      
+      <!-- Decorative flourish -->
+      <path d="M8,5 Q15,0 20,5 Q15,10 8,5" stroke="#A9BFA8" stroke-width="1" fill="none" opacity="0.7"/>
+      <circle cx="15" cy="5" r="1" fill="#FAFFC5" opacity="0.8"/>
+    </g>
+  </defs>
+  
+  <!-- Border frame -->
+  <rect x="10" y="10" width="180" height="180" fill="none" stroke="url(#sundaPattern)" stroke-width="20"/>
+  
+  <!-- Corner ornaments -->
+  <use href="#cornerOrnament" transform="translate(15,15)"/>
+  <use href="#cornerOrnament" transform="translate(185,15) rotate(90)"/>
+  <use href="#cornerOrnament" transform="translate(185,185) rotate(180)"/>
+  <use href="#cornerOrnament" transform="translate(15,185) rotate(270)"/>
+  
+  <!-- Center decorative element (optional) -->
+  <circle cx="100" cy="100" r="8" fill="none" stroke="#A9BFA8" stroke-width="2" opacity="0.5"/>
+  <path d="M100,88 Q110,95 100,105 Q90,95 100,88" fill="#FAFFC5" opacity="0.6"/>
+</svg>
