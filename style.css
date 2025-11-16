@@ -305,8 +305,11 @@ p {
 }
 
 .footer-section {
-  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-  color: var(--white);
+  background: linear-gradient(rgba(58, 57, 96, 0.4), rgba(169, 191, 168, 0.3)),
+    url("./assets/IMG_3000.jpg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
 }
 
 /* Sundanese Decorative Elements */
@@ -527,14 +530,15 @@ p {
 
 /* Event Section */
 .event-cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  display: flex;
+  flex-direction: column;
+  /* grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); */
   gap: 2rem;
   margin-top: 3rem;
 }
 
 .event-card {
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(255, 255, 255, 0.5); /* 50% transparan */
   padding: 2.5rem;
   text-align: left;
   display: flex;
@@ -544,6 +548,7 @@ p {
   box-shadow: 0 8px 32px var(--shadow);
   backdrop-filter: blur(2px);
   transition: all 0.3s ease;
+  border-radius: 50px;
 }
 
 .event-card:hover {
@@ -649,9 +654,39 @@ p {
   margin-bottom: 2rem;
 }
 
-.account-details p {
-  margin-bottom: 1rem;
+.account-details {
+  text-align: center;
   font-size: 1.1rem;
+}
+
+.account-details p {
+  margin-bottom: 0.25rem;
+  font-weight: 500;
+}
+
+.account-number,
+.account-name {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.account-number span,
+.account-name span {
+  font-family: monospace;
+  font-weight: 600;
+}
+
+.copy-btn:hover {
+  background-color: #8fa78f;
+}
+
+.copy-btn svg {
+  width: 16px;
+  height: 16px;
+  stroke: #fff;
 }
 
 .account-number {
@@ -1004,7 +1039,7 @@ p {
   gap: 0.3rem;
   background: rgba(255, 255, 255, 0.95);
   padding: 0.8rem 1.2rem;
-  border-radius: 60px;
+  border-radius: 30px;
   box-shadow: 0 8px 32px rgba(58, 57, 96, 0.15);
   backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.2);
